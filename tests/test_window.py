@@ -1,4 +1,4 @@
-from roomwatch.window import MotionWindow
+from hearth.window import MotionWindow
 
 
 def test_window_forgets_a_drop_after_two_seconds():

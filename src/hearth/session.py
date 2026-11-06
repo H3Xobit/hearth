@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from roomwatch.alert import Alert
-from roomwatch.rank import Ranker
+from hearth.alert import Alert
+from hearth.rank import Ranker
 
 
 class Session:

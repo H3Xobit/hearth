@@ -1,6 +1,6 @@
-from roomwatch.labels import LABELS
-from roomwatch.session import Session
-from roomwatch.alert import Alert
+from hearth.labels import LABELS
+from hearth.session import Session
+from hearth.alert import Alert
 
 
 def standing_scores():

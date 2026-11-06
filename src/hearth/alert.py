@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from roomwatch.labels import POSSIBLE_FALL, RECOVERED
+from hearth.labels import POSSIBLE_FALL, RECOVERED
 
 RED_HOLD_S = 10.0
 ASK_S = 20.0
@@ -44,7 +44,7 @@ class Alert:
 
     def message(self, room: str, scores: list[float], event: str) -> dict:
         """The short message a robot or a staff tablet subscribes to. No image."""
-        from roomwatch.labels import LABELS
+        from hearth.labels import LABELS
 
         return {
             "room": room,

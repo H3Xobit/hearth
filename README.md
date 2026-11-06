@@ -1,6 +1,6 @@
-# Roomwatch
+# Hearth
 
-Roomwatch reads a room camera and keeps eight live scores: standing, walking, sitting, using an object, unclear, nobody visible, lying, and possible fall. The scores sum to 1 and are sorted with the highest on top. They ease up and down, so a held posture climbs and a sudden change trades the lead.
+Hearth reads a room camera and keeps eight live scores: standing, walking, sitting, using an object, unclear, nobody visible, lying, and possible fall. The scores sum to 1 and are sorted with the highest on top. They ease up and down, so a held posture climbs and a sudden change trades the lead.
 
 If possible fall stays on top, the state is `red_hold` for 10 seconds, then `asking` for 20 seconds. Standing or walking cancels it. Each change is a short JSON message with the room name and the scores. There is no image in the message. A robot or a staff tablet can subscribe to that message. The camera side is the one that sends it.
 
@@ -39,7 +39,7 @@ python3.12 -m venv .venv
 source .venv/bin/activate
 pip install -e ".[pose,dev]"
 pytest
-python -m roomwatch --video clip.mp4 --room lounge
+python -m hearth --video clip.mp4 --room lounge
 ```
 
 The first video run downloads the pose weights. `pytest` does not download them and does not need a camera. Pass `--mode balanced` for a smaller pose model, or `--device cuda` when a GPU is available.

@@ -1,6 +1,6 @@
 """Read a video file at 4 frames a second and print one JSON object per sample.
 
-    python -m roomwatch --video clip.mp4 --room lounge
+    python -m hearth --video clip.mp4 --room lounge
 """
 
 from __future__ import annotations
@@ -31,8 +31,8 @@ def main(argv: list[str] | None = None) -> int:
     except ImportError:
         print("OpenCV is not installed. Use: pip install -e '.[pose]'", file=sys.stderr)
         return 2
-    from roomwatch.pose import PoseReader
-    from roomwatch.session import Session
+    from hearth.pose import PoseReader
+    from hearth.session import Session
 
     capture = cv2.VideoCapture(args.video)
     if not capture.isOpened():

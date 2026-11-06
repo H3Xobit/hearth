@@ -4,9 +4,9 @@ from __future__ import annotations
 
 import math
 
-from roomwatch.labels import LABELS
-from roomwatch.pose_math import measure, raw_scores
-from roomwatch.window import MotionWindow
+from hearth.labels import LABELS
+from hearth.pose_math import measure, raw_scores
+from hearth.window import MotionWindow
 
 
 class Ranker:

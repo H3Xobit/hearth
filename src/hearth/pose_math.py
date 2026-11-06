@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import math
 
-from roomwatch.labels import LABELS
+from hearth.labels import LABELS
 
 # COCO body order used by RTMPose when the openpose flag is off.
 NOSE = 0

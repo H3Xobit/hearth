@@ -1,6 +1,6 @@
-from roomwatch.labels import LABELS
-from roomwatch.rank import Ranker
-from roomwatch.session import Session
+from hearth.labels import LABELS
+from hearth.rank import Ranker
+from hearth.session import Session
 
 # COCO indexes used by the stick figure.
 L_SHO, R_SHO = 5, 6
