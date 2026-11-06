@@ -6,6 +6,7 @@ import math
 
 from roomwatch.labels import LABELS
 from roomwatch.pose_math import measure, raw_scores
+from roomwatch.window import MotionWindow
 
 
 class Ranker:
@@ -19,11 +20,13 @@ class Ranker:
         self.scores[LABELS.index("no_person")] = 1.0
         self._last_t = None
         self._previous = None
+        self._window = MotionWindow(2.0)
 
     def update(self, t: float, points) -> list[float]:
         dt = 0.25 if self._last_t is None else max(0.0, t - self._last_t)
         now = measure(points, self._previous, dt)
-        raw = raw_scores(now)
+        motion = self._window.push(t, now)
+        raw = raw_scores(now, motion)
         alpha = 1.0 - math.exp(-math.log(2.0) * dt / self.half_life_s)
         self.scores = [
             (1.0 - alpha) * old + alpha * new for old, new in zip(self.scores, raw)

@@ -109,15 +109,42 @@ def test_horizontal_body_is_lying():
     assert ranker.leader() == "lying"
 
 
+def tipped(hip_y, above):
+    """above is how many pixels the shoulders sit over the hips. 0 is flat."""
+    points = standing(hip_y=hip_y)
+    put(points, L_SHO, 20, hip_y - above)
+    put(points, R_SHO, 40, hip_y - above)
+    return points
+
+
 def test_fast_drop_leads_with_possible_fall():
     ranker = Ranker(half_life_s=0.25)
     ranker.update(0.0, standing())
-    ranker.update(0.25, standing(hip_y=170, lean=30))
-    view = None
-    for step, hip in enumerate((220, 250), start=2):
-        view = ranker.update(step * 0.25, standing(hip_y=hip, lean=70, ankle_gap=6))
+    ranker.update(0.25, tipped(160, 25))
+    view = ranker.update(0.5, tipped(220, 4))
     assert ranker.leader() == "possible_fall"
     assert view[LABELS.index("possible_fall")] > 0.4
+
+
+def test_crouch_stays_off_the_fall_bar():
+    ranker = Ranker(half_life_s=0.25)
+    ranker.update(0.0, standing())
+    for step, hip in enumerate((150, 190, 220), start=1):
+        ranker.update(step * 0.25, standing(hip_y=hip))
+    assert ranker.leader() != "possible_fall"
+
+
+def test_fall_stays_for_the_two_second_window():
+    ranker = Ranker(half_life_s=0.2)
+    ranker.update(0.0, standing())
+    ranker.update(0.25, tipped(160, 25))
+    ranker.update(0.5, tipped(220, 4))
+    for step in range(4):
+        ranker.update(0.75 + step * 0.25, lying())
+    assert ranker.leader() == "possible_fall"
+    ranker.update(3.2, lying())
+    ranker.update(3.45, lying())
+    assert ranker.leader() == "lying"
 
 
 def test_slow_lie_does_not_outrank_lying():

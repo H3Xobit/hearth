@@ -121,8 +121,12 @@ def _softmax(logits):
     return [value / total for value in exps]
 
 
-def raw_scores(measure_now) -> list[float]:
-    """Eight shares that sum to 1. None means nobody is in frame."""
+def raw_scores(measure_now, motion=None) -> list[float]:
+    """Eight shares that sum to 1. None means nobody is in frame.
+
+    motion is the 2 second summary. Possible fall uses the peak drop in that
+    window, and only after the torso has actually left upright.
+    """
     if measure_now is None:
         scores = [0.0] * len(LABELS)
         scores[LABELS.index("no_person")] = 1.0
@@ -132,6 +136,8 @@ def raw_scores(measure_now) -> list[float]:
     step = measure_now["step"]
     bend = measure_now["bend"]
     reach = measure_now["reach"]
+    upright_loss = 0.0 if motion is None else motion["upright_loss"]
+    peak_drop = drop if motion is None else max(drop, motion["max_drop"])
     logits = [_LOGIT[name] for name in LABELS]
     up = max(upright, 0.0)
     # A wide step or a folded leg takes the share that standing would have had.
@@ -142,10 +148,10 @@ def raw_scores(measure_now) -> list[float]:
         logits[LABELS.index("using_an_object")] += 5.5 * (reach - 0.9)
         logits[LABELS.index("standing")] *= 0.15
     horizontal = 1.0 - up
-    logits[LABELS.index("lying")] += 3.2 * horizontal * (1.0 if drop < 0.8 else 0.3)
-    # A fall is a fast drop while the torso is leaving upright.
-    if drop > 0.6:
-        logits[LABELS.index("possible_fall")] += 2.8 * min(drop, 3.0) * (0.4 + horizontal)
+    logits[LABELS.index("lying")] += 3.2 * horizontal * (1.0 if peak_drop < 0.8 else 0.3)
+    # A crouch drops the hips and stays upright. A fall also loses the torso.
+    if upright_loss >= 0.35 and peak_drop > 0.6:
+        logits[LABELS.index("possible_fall")] += 2.8 * min(peak_drop, 3.0) * (0.4 + max(horizontal, upright_loss))
     if upright < 0.2 and drop < 0.4:
         logits[LABELS.index("lying")] += 1.2
     logits[LABELS.index("unclear")] += 0.3 * (1.0 - abs(upright))
