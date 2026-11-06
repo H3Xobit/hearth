@@ -28,7 +28,7 @@ A fast drop holds the red bar:
 
 Walking leads in the hall, with the same bars:
 
-![Walking leads in the hall](docs/hall-night.jpg)
+![Walking leads in the hall](docs/hall-walk.jpg)
 
 ## Run
 
