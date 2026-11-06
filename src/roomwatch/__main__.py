@@ -60,6 +60,10 @@ def main(argv: list[str] | None = None) -> int:
             "leader": view["leader"],
             "state": view["state"],
             "ranked": [(name, round(score, 4)) for name, score in view["ranked"]],
+            "motion": {
+                "max_drop": round(view["motion"]["max_drop"], 4),
+                "upright_loss": round(view["motion"]["upright_loss"], 4),
+            },
         }
         if view["message"] is not None:
             row["message"] = view["message"]

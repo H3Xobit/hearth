@@ -25,4 +25,5 @@ class Session:
             "state": self.alert.state,
             "event": event,
             "message": message,
+            "motion": dict(self.ranker.motion),
         }
