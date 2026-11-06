@@ -71,7 +71,7 @@ def measure(points, previous, dt):
         return None
     torso = max(_dist(shoulder, hip), 1.0)
     # Shoulder above the hip in the image is the upright direction.
-    dx = shoulder[0] - hip[0]
+    # Horizontal offset is already inside torso, so upright is the vertical share.
     dy = shoulder[1] - hip[1]
     upright = max(-1.0, min(1.0, -dy / torso))
     bends = []
