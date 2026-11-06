@@ -12,7 +12,7 @@ The eight scores are geometric: torso angle, how fast the hips drop, step width,
 
 ## Screens
 
-Four views of the finished product. The rooms are ordinary. The type is drawn on top so the numbers stay sharp.
+Three views of the finished product. The rooms are ordinary. The type is drawn on top so the numbers stay sharp.
 
 Walking leads in a lounge:
 
@@ -25,10 +25,6 @@ Sitting takes the top bar:
 A fast drop holds the red bar:
 
 ![Possible fall on the red hold](docs/room-floor.jpg)
-
-Walking leads in the hall, with the same bars:
-
-![Walking leads in the hall](docs/hall-walk.jpg)
 
 ## Run
 
