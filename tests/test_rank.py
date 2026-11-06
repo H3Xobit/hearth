@@ -1,5 +1,6 @@
 from roomwatch.labels import LABELS
 from roomwatch.rank import Ranker
+from roomwatch.session import Session
 
 # COCO indexes used by the stick figure.
 L_SHO, R_SHO = 5, 6
@@ -115,6 +116,14 @@ def tipped(hip_y, above):
     put(points, L_SHO, 20, hip_y - above)
     put(points, R_SHO, 40, hip_y - above)
     return points
+
+
+def test_session_reports_the_drop_in_the_window():
+    session = Session("lounge", half_life_s=0.25)
+    session.update(0.0, standing())
+    view = session.update(0.25, tipped(160, 25))
+    assert view["motion"]["max_drop"] > 0.6
+    assert view["motion"]["upright_loss"] > 0.2
 
 
 def test_fast_drop_leads_with_possible_fall():
