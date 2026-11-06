@@ -26,9 +26,9 @@ A fast drop holds the red bar:
 
 ![Possible fall on the red hold](docs/room-floor.jpg)
 
-The night board is a count for staff. The robot keeps folding.
+Walking leads in the hall, with the same bars:
 
-![Night board in the hall](docs/hall-night.jpg)
+![Walking leads in the hall](docs/hall-night.jpg)
 
 ## Run
 
