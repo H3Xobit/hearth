@@ -10,6 +10,26 @@ The body points come from RTMPose through [rtmlib](https://github.com/Tau-J/rtml
 
 The eight scores are geometric: torso angle, how fast the hips drop, step width, knee bend, and wrist reach. Possible fall uses the fastest drop inside a 2 second window, and only if the torso also left upright. A crouch that stays upright does not raise it. Two seconds is the window length that beat 1 second and 3 seconds for an ST-GCN fall model on UP-Fall inertial clips (Sensors, 2023). A trained fall network is not shipped. Papers on UR Fall, UP-Fall, and Le2i often report accuracy in the mid or high 90s on staged clips. A public RTMPose plus ST-GCN++ check was about 87% on the set it trained on and about 62% on a set it had not seen. Those staged numbers are not a promise for a care floor. The geometric ranker is what you can run and test before any of your own clips exist.
 
+## Screens
+
+Four views of the finished product. The rooms are ordinary. The type is drawn on top so the numbers stay sharp.
+
+Walking leads in a lounge:
+
+![Walking leads in the lounge](docs/room-walk.jpg)
+
+Sitting takes the top bar:
+
+![Sitting leads in the lounge](docs/room-sit.jpg)
+
+A fast drop holds the red bar:
+
+![Possible fall on the red hold](docs/room-floor.jpg)
+
+The night board is a count for staff. The robot keeps folding.
+
+![Night board in the hall](docs/hall-night.jpg)
+
 ## Run
 
 Requires Python 3.11 or newer.
